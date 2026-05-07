@@ -1,0 +1,112 @@
+<div class="container mt-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="fw-bold mb-0">🌍 Countries</h3>
+    <span class="badge bg-primary">
+      {{ countries().length }} registros
+    </span>
+  </div>
+
+  <!-- Card -->
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+
+      <!-- Buscador -->
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Buscar país..." (input)="onSearch($event.target.value)" />
+      </div>
+
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>País</th>
+            <th class="text-end">Área (km²)</th>
+            <th class="text-end">Población</th>
+          </tr>
+        </thead>
+
+        <tbody>
+         <!-- @for (country of countries(); track country.cca2; let i = $index) {-->
+          @for (country of paginatedCountries; track country.cca2; let i = $index){
+            <tr class="row-hover">
+
+              <!-- Index -->
+              <th class="text-muted">{{ (currentPage - 1) * itemsPerPage + i + 1 }}</th>
+
+              <!-- Country -->
+              <td>
+                <a 
+                  [routerLink]="['/country', country.cca2 | lowercase]"
+                  class="d-flex align-items-center text-decoration-none text-dark"
+                >
+                  <img
+                    [src]="country.flags.png"
+                    [alt]="country.name.common"
+                    class="me-3 rounded shadow-sm"
+                    style="width: 30px"
+                  />
+
+                  <div>
+                    <div class="fw-semibold">
+                      {{ country.name.common }}
+                    </div>
+                    <small class="text-muted">
+                      {{ country.cca2 }}
+                    </small>
+                  </div>
+                </a>
+              </td>
+
+              <!-- Area -->
+              <td class="text-end">
+                {{ country.area | number }}
+              </td>
+
+              <!-- Population -->
+              <td class="text-end">
+                <span class="badge bg-secondary">
+                  {{ country.population | number }}
+                </span>
+              </td>
+
+            </tr>
+          }
+        </tbody>
+
+      </table>
+
+      <!-- 🔽 PAGINACIÓN -->
+      <div class="d-flex justify-content-center mt-3">
+
+      <!-- Anterior -->
+      <button 
+        class="btn btn-sm btn-outline-primary me-2"
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 1">
+        Anterior
+      </button>
+
+      @for (page of visiblePages; track page) {
+      <button
+        class="btn btn-sm me-1"
+        [class.btn-primary]="currentPage === page"
+        [class.btn-outline-primary]="currentPage !== page"
+        (click)="goToPage(page)">
+        {{ page }}
+      </button>
+     }
+
+      <!-- Siguiente -->
+      <button 
+        class="btn btn-sm btn-outline-primary ms-2"
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages">
+        Siguiente
+      </button>
+
+    </div>
+    </div>
+  </div>
+</div>
