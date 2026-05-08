@@ -76,6 +76,20 @@
 
   </div>
 
+  <!-- Mapa -->
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <h5 class="fw-semibold mb-3">🗺️ Mapa</h5>
+      @if (country() && country().latlng) {
+        <div #mapContainer class="map-container"></div>
+      } @else if (country()) {
+        <div class="text-muted text-center py-5">Sin información de ubicación</div>
+      } @else {
+        <div class="text-muted text-center py-5">Cargando mapa...</div>
+      }
+    </div>
+  </div>
+
   <!-- Back Button -->
   <div class="text-center mt-4">
     <a routerLink="/countries" class="btn btn-primary px-4">

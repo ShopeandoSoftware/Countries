@@ -13,6 +13,6 @@ export class Countries {
   }
 
   getCountry(code: string) {
-    return this.http.get<any>(`https://api4devs.infinitec.com/v3.1/alpha/${code}?fields=name,area,population,flags,maps,capital`);
+    return this.http.get<any>(`https://api4devs.infinitec.com/v3.1/alpha/${code}?fields=name,area,population,flags,maps,capital,latlng`);
   }
 }
