@@ -1,0 +1,65 @@
+<div class="contact-page">
+  <div class="contact-grid">
+    <section class="contact-card form-panel">
+      <div class="form-heading">
+        <span class="tag">Formulario</span>
+        <h2>Envía tu mensaje</h2>
+        <p>Completa los campos y nos contactaremos contigo con la mejor atención global.</p>
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="field-group">
+          <label>Nombre</label>
+          <input type="text" formControlName="name" placeholder="Tu nombre" />
+
+          @if (
+            contactForm.get('name')?.invalid &&
+            contactForm.get('name')?.touched
+          ) {
+            <small>Nombre requerido (mínimo 3 caracteres)</small>
+          }
+        </div>
+
+        <div class="field-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="correo@dominio.com" />
+
+          @if (
+            contactForm.get('email')?.invalid &&
+            contactForm.get('email')?.touched
+          ) {
+            <small>Correo electrónico no válido</small>
+          }
+        </div>
+
+        <div class="field-group">
+          <label>Teléfono</label>
+          <input type="text" formControlName="phone" placeholder="1234567890" />
+
+          @if (
+            contactForm.get('phone')?.invalid &&
+            contactForm.get('phone')?.touched
+          ) {
+            <small>Número a 10 dígitos</small>
+          }
+        </div>
+
+        <div class="field-group">
+          <label>Mensaje</label>
+          <textarea rows="6" formControlName="message" placeholder="Cuéntanos qué necesitas..."></textarea>
+
+          @if (
+            contactForm.get('message')?.invalid &&
+            contactForm.get('message')?.touched
+          ) {
+            <small>Mensaje requerido (10-250 caracteres)</small>
+          }
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="contactForm.invalid">
+          Enviar mensaje
+        </button>
+      </form>
+    </section>
+  </div>
+</div>
